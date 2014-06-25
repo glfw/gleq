@@ -59,9 +59,38 @@ while (gleqNextEvent(&event))
 }
 ```
 
+
 ## FAQ
 
 ### Does GLEQ use the GLFW window user pointer?
 
-No.
+No, only window related callbacks.
+
+
+### Does GLEQ allocate memory?
+
+Only to save a deep copy of the path list provided to the file drop callback.
+The event queue itself is a global static array.
+
+
+### Aren't static arrays bad?
+
+It depends.  Also, the size of the queue can be controlled with `GLEQ_CAPACITY`.
+
+
+### Isn't global data bad?
+
+It depends.  The native event queue wrapped by GLFW is global, too.
+
+
+### Why doesn't GLEQ provide one queue per window?
+
+GLEQ is intended to be a simple example event queue.  Having a queue per window
+would make it more complicated than it needs to be.
+
+
+### Why isn't GLEQ thread safe?
+
+GLEQ is intended to be a simple example event queue.  Making it thread safe
+would make it more complicated than it needs to be.
 
