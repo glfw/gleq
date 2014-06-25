@@ -17,6 +17,13 @@ To use GLEQ, include `gleq.h` after the GLFW header.  To add the implementation
 of GLEQ, define `GLEQ_IMPLEMENTATION` before including the GLEQ header in
 *exactly one* source file.
 
+```c
+#include <GLFW/glfw3.h>
+
+#define GLEQ_IMPLEMENTATION
+#include "gleq.h"
+```
+
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This
 replaces all callback on that window.
 
