@@ -1,14 +1,18 @@
 # GLEQ ̣̣— GLFW Event Queue
 
 **GLEQ** is a simple, header-only event queue for GLFW 3.  It adds GLFW events
-for tracked windows to a single global queue.  That's all.  No magic.
+for tracked windows to a single global queue.  Nothing more.
 
-GLEQ is inspired by SDL and GLWT, and is written *as an example* for people
-requesting that GLFW provide an event queue API.
+GLEQ is inspired by [SDL](http://www.libsdl.org/) and
+[GLWT](https://github.com/rikusalminen/glwt), and is written *as an example* for
+people requesting that GLFW provide an event queue API, to show how easy it is
+to implement on top of GLFW callbacks.
 
 GLEQ is written in C89 and depends only on GLFW 3.1 or later.
 
-GLEQ is a work in progress but works just fine.
+GLEQ is a work in progress.  It is undocumented and may change name, but it
+works as intended and covers all window related events up to and including
+GLFW 3.1.  Just drop it into your project and include it.
 
 
 ## Using GLEQ
@@ -25,7 +29,8 @@ of GLEQ, define `GLEQ_IMPLEMENTATION` before including the GLEQ header in
 ```
 
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This
-replaces all callback on that window.
+replaces all callback on that window.  You should not set any callbacks on
+a tracked window.
 
 ```c
 gleqTrackWindow(window);
@@ -53,4 +58,10 @@ while (gleqNextEvent(&event))
     gleqFreeEvent(&event);
 }
 ```
+
+## FAQ
+
+### Does GLEQ use the GLFW window user pointer?
+
+No.
 
