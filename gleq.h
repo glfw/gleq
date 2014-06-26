@@ -111,14 +111,17 @@ extern void gleqFreeEvent(GLEQevent* event);
 static struct
 {
     GLEQevent events[GLEQ_CAPACITY];
-    size_t count;
-} gleq = { {}, 0 };
+    size_t head;
+    size_t tail;
+} gleq = { {}, 0, 0 };
 
 static GLEQevent* gleqNewEvent(void)
 {
-    assert(gleq.count < GLEQ_CAPACITY);
-    memset(gleq.events + gleq.count, 0, sizeof(GLEQevent));
-    return gleq.events + gleq.count++;
+    GLEQevent* event = gleq.events + gleq.head;
+    gleq.head = (gleq.head + 1) % GLEQ_CAPACITY;
+    assert(gleq.head != gleq.tail);
+    memset(event, 0, sizeof(GLEQevent));
+    return event;
 }
 
 static void gleqWindowPosCallback(GLFWwindow* window, int x, int y)
@@ -285,11 +288,10 @@ int gleqNextEvent(GLEQevent* event)
 {
     memset(event, 0, sizeof(GLEQevent));
 
-    if (gleq.count)
+    if (gleq.head != gleq.tail)
     {
-        *event = gleq.events[0];
-        gleq.count--;
-        memmove(gleq.events, gleq.events + 1, gleq.count * sizeof(GLEQevent));
+        *event = gleq.events[gleq.tail];
+        gleq.tail = (gleq.tail + 1) % GLEQ_CAPACITY;
     }
 
     return event->type != GLEQ_NONE;
