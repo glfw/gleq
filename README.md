@@ -59,6 +59,10 @@ while (gleqNextEvent(&event))
 }
 ```
 
+The call to `gleqFreeEvent` frees any memory allocated for the event and clears
+the event struct.  Currently only the file drop event allocates memory, but it's
+recommended to call it for every event once it has been processed.
+
 
 ## FAQ
 
