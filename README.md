@@ -1,4 +1,4 @@
-# GLEQ ̣̣— GLFW Event Queue
+# GLEQ — GLFW Event Queue
 
 **GLEQ** is a simple, header-only event queue for GLFW 3.  It adds GLFW events
 for tracked windows to a single global queue.  Nothing more.
