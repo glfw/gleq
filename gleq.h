@@ -25,6 +25,18 @@
 #ifndef GLEQ_HEADER_FILE
 #define GLEQ_HEADER_FILE
 
+#if GLFW_VERSION_MAJOR != 3
+    #error "This version of GLEQ only supports GLFW 3"
+#endif
+
+#if GLFW_VERSION_MINOR < 1
+    #error "This version of GLEQ requires GLFW 3.1 or later"
+#endif
+
+#if GLFW_VERSION_MINOR != 1
+    #warning "This version of GLEQ does not support events added after GLFW 3.1"
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
