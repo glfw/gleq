@@ -311,16 +311,12 @@ int gleqNextEvent(GLEQevent* event)
 
 void gleqFreeEvent(GLEQevent* event)
 {
-    switch (event->type)
+    if (event->type == GLEQ_FILE_DROPPED)
     {
-        case GLEQ_FILE_DROPPED:
-        {
-            while (event->file.count--)
-                free(event->file.paths[event->file.count]);
+        while (event->file.count--)
+            free(event->file.paths[event->file.count]);
 
-            free(event->file.paths);
-            break;
-        }
+        free(event->file.paths);
     }
 
     memset(event, 0, sizeof(GLEQevent));
