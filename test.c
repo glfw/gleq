@@ -36,7 +36,10 @@ int main(int argc, char** argv)
 
     GLFWwindow* window = glfwCreateWindow(640, 480, "Event Queue Test", NULL, NULL);
     if (!window)
+    {
+        glfwTerminate();
         exit(EXIT_FAILURE);
+    }
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(0);
