@@ -8,11 +8,12 @@ GLEQ is inspired by [SDL](http://www.libsdl.org/) and
 people requesting that GLFW provide an event queue API, to show how easy it is
 to implement on top of GLFW callbacks.
 
-GLEQ is written in C89 and depends only on GLFW 3.1 or later.
+GLEQ is written in C89 and depends only on GLFW 3.1 or later, as no new window
+events were added in GLFW 3.2.
 
 GLEQ is a work in progress.  It is undocumented and may change name, but it
 works as intended and covers all window related events up to and including
-GLFW 3.1.  Just drop it into your project and include it.
+GLFW 3.2.  Just drop it into your project and include it.
 
 
 ## Using GLEQ

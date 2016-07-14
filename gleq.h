@@ -33,8 +33,8 @@
     #error "This version of GLEQ requires GLFW 3.1 or later"
 #endif
 
-#if GLFW_VERSION_MINOR != 1
-    #warning "This version of GLEQ does not support events added after GLFW 3.1"
+#if GLFW_VERSION_MINOR > 2
+    #warning "This version of GLEQ does not support events added after GLFW 3.2"
 #endif
 
 #ifdef __cplusplus
