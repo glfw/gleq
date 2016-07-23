@@ -277,7 +277,7 @@ static void gleq_file_drop_callback(GLFWwindow* window, int count, const char** 
     GLEQevent* event = gleq_new_event();
     event->type = GLEQ_FILE_DROPPED;
     event->window = window;
-    event->file.paths = malloc(count * sizeof(char*));
+    event->file.paths = (char**)malloc(count * sizeof(char*));
     event->file.count = count;
 
     while (count--)
