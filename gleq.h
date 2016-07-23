@@ -67,7 +67,7 @@ typedef enum
 
 } GLEQtype;
 
-typedef struct
+typedef struct GLEQevent
 {
     GLEQtype type;
     GLFWwindow* window;
