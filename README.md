@@ -15,6 +15,9 @@ GLEQ is a work in progress.  It is undocumented and may change name, but it
 works as intended and covers all window related events up to and including
 GLFW 3.2.  Just drop it into your project and include it.
 
+GLEQ is licensed under the [zlib/libpng
+license](https://opensource.org/licenses/Zlib).
+
 
 ## Using GLEQ
 
