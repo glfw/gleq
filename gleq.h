@@ -37,6 +37,12 @@
     #warning "This version of GLEQ does not support events added after GLFW 3.2"
 #endif
 
+#ifdef GLEQ_STATIC
+    #define GLEQDEF static
+#else
+    #define GLEQDEF extern
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -101,10 +107,10 @@ typedef struct GLEQevent
 
 } GLEQevent;
 
-extern void gleqTrackWindow(GLFWwindow* window);
+GLEQDEF void gleqTrackWindow(GLFWwindow* window);
 
-extern int gleqNextEvent(GLEQevent* event);
-extern void gleqFreeEvent(GLEQevent* event);
+GLEQDEF int gleqNextEvent(GLEQevent* event);
+GLEQDEF void gleqFreeEvent(GLEQevent* event);
 
 #ifdef __cplusplus
 }
@@ -278,7 +284,7 @@ static void gleqFileDropCallback(GLFWwindow* window, int count, const char** pat
         event->file.paths[count] = strdup(paths[count]);
 }
 
-void gleqTrackWindow(GLFWwindow* window)
+GLEQDEF void gleqTrackWindow(GLFWwindow* window)
 {
     glfwSetWindowPosCallback(window, gleqWindowPosCallback);
     glfwSetWindowSizeCallback(window, gleqWindowSizeCallback);
@@ -296,7 +302,7 @@ void gleqTrackWindow(GLFWwindow* window)
     glfwSetDropCallback(window, gleqFileDropCallback);
 }
 
-int gleqNextEvent(GLEQevent* event)
+GLEQDEF int gleqNextEvent(GLEQevent* event)
 {
     memset(event, 0, sizeof(GLEQevent));
 
@@ -309,7 +315,7 @@ int gleqNextEvent(GLEQevent* event)
     return event->type != GLEQ_NONE;
 }
 
-void gleqFreeEvent(GLEQevent* event)
+GLEQDEF void gleqFreeEvent(GLEQevent* event)
 {
     if (event->type == GLEQ_FILE_DROPPED)
     {
