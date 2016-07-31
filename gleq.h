@@ -1,6 +1,6 @@
 /*
  * GLEQ - An event queue for GLFW 3
- * Copyright © Camilla Berglund <dreda@glfw.org>
+ * Copyright © Camilla Berglund <elmindreda@glfw.org>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
