@@ -1,7 +1,7 @@
 # GLEQ — GLFW Event Queue
 
-**GLEQ** is a simple, header-only event queue for GLFW 3.  It adds GLFW events
-for tracked windows to a single global queue.  Nothing more.
+**GLEQ** is a simple, header-only event queue library for GLFW 3.  It adds GLFW
+events for tracked windows to a single global queue.  Nothing more.
 
 GLEQ is inspired by [SDL](http://www.libsdl.org/) and
 [GLWT](https://github.com/rikusalminen/glwt), and is written *as an example* for
