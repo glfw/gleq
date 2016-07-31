@@ -32,6 +32,17 @@ of GLEQ, define `GLEQ_IMPLEMENTATION` before including the GLEQ header in
 #include "gleq.h"
 ```
 
+If you will only be using GLEQ in a single source file, you can make _all_ its
+functions static by defining `GLEQ_STATIC` as well.
+
+```c
+#include <GLFW/glfw3.h>
+
+#define GLEQ_IMPLEMENTATION
+#define GLEQ_STATIC
+#include "gleq.h"
+```
+
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This
 replaces all callback on that window.  You should not set any callbacks on
 a tracked window.
