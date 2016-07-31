@@ -29,8 +29,15 @@
 
 #include <stdio.h>
 
+static void error_callback(int error, const char* description)
+{
+    fprintf(stderr, "Error: %s\n", description);
+}
+
 int main(int argc, char** argv)
 {
+    glfwSetErrorCallback(error_callback);
+
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
@@ -119,6 +126,9 @@ int main(int argc, char** argv)
                     printf("%i files dropped\n", event.file.count);
                     for (i = 0;  i < event.file.count;  i++)
                         printf("\t%s\n", event.file.paths[i]);
+                    break;
+                default:
+                    fprintf(stderr, "Error: Unknown event %i\n", event.type);
                     break;
             }
 
