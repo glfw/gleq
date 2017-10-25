@@ -143,6 +143,14 @@ static struct
     size_t tail;
 } gleq_queue = { {}, 0, 0 };
 
+static char* gleq_strdup(const char* string)
+{
+    const size_t size = strlen(string) + 1;
+    char* result = malloc(size);
+    memcpy(result, string, size);
+    return result;
+}
+
 static GLEQevent* gleq_new_event(void)
 {
     GLEQevent* event = gleq_queue.events + gleq_queue.head;
@@ -302,7 +310,7 @@ static void gleq_file_drop_callback(GLFWwindow* window, int count, const char** 
     event->file.count = count;
 
     while (count--)
-        event->file.paths[count] = strdup(paths[count]);
+        event->file.paths[count] = gleq_strdup(paths[count]);
 }
 #endif
 
