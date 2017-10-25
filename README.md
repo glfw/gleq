@@ -1,19 +1,19 @@
 # GLEQ — GLFW Event Queue
 
-**GLEQ** is a simple, header-only event queue library for GLFW 3.  It adds GLFW
-events for tracked windows to a single global queue.  Nothing more.
+**GLEQ** is a basic, header-only event queue library for GLFW 3.  It adds GLFW
+events for monitors, joysticks and windows to a single global queue.  Nothing
+more.
 
 GLEQ is inspired by [SDL](http://www.libsdl.org/) and
-[GLWT](https://github.com/rikusalminen/glwt), and is written *as an example* for
+[GLWT](https://github.com/rikusalminen/glwt), and is written _as an example_ for
 people requesting that GLFW provide an event queue API, to show how easy it is
 to implement on top of GLFW callbacks.
 
-GLEQ is written in C89 and depends only on GLFW 3.1 or later, as no new window
-events were added in GLFW 3.2.
+GLEQ is written in C and depends only on GLFW 3.0 or later.
 
-GLEQ is a work in progress.  It is undocumented and may change name, but it
-works as intended and covers all window related events up to and including
-GLFW 3.2.  Just drop it into your project and include it.
+GLEQ is a work in progress and the interface may change but it works as intended
+and covers nearly all events up to and including GLFW 3.3.  Just drop it into
+your project and include it after the GLFW header.
 
 GLEQ is licensed under the [zlib/libpng
 license](https://opensource.org/licenses/Zlib).
@@ -41,6 +41,16 @@ functions static by defining `GLEQ_STATIC` as well.
 #define GLEQ_IMPLEMENTATION
 #define GLEQ_STATIC
 #include "gleq.h"
+```
+
+After GLFW has been successfully initialized, call `gleqInit`.  This will hook
+monitor and joystick events.
+
+```c
+if (!glfwInit())
+    return false;
+
+gleqInit();
 ```
 
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This

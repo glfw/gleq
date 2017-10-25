@@ -1,6 +1,6 @@
 /*
  * Test program for GLEQ
- * Copyright © Camilla Berglund <elmindreda@glfw.org>
+ * Copyright © Camilla Löwy <elmindreda@glfw.org>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -41,6 +41,8 @@ int main(int argc, char** argv)
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
+    gleqInit();
+
     GLFWwindow* window = glfwCreateWindow(640, 480, "Event Queue Test", NULL, NULL);
     if (!window)
     {
@@ -66,10 +68,11 @@ int main(int argc, char** argv)
             switch (event.type)
             {
                 case GLEQ_WINDOW_MOVED:
-                    printf("Window moved to (%.0f %.0f)\n", event.pos.x, event.pos.y);
+                    printf("Window moved to %i,%i\n", event.pos.x, event.pos.y);
                     break;
                 case GLEQ_WINDOW_RESIZED:
-                    printf("Window resized to (%i %i)\n", event.size.width, event.size.height);
+                    printf("Window resized to %ix%i\n",
+                           event.size.width, event.size.height);
                     break;
                 case GLEQ_WINDOW_CLOSED:
                     printf("Window close request\n");
@@ -86,20 +89,27 @@ int main(int argc, char** argv)
                 case GLEQ_WINDOW_ICONIFIED:
                     printf("Window iconified\n");
                     break;
-                case GLEQ_WINDOW_RESTORED:
-                    printf("Window restored\n");
+                case GLEQ_WINDOW_UNICONIFIED:
+                    printf("Window uniconified\n");
+                    break;
+                case GLEQ_WINDOW_MAXIMIZED:
+                    printf("Window maximized\n");
+                    break;
+                case GLEQ_WINDOW_UNMAXIMIZED:
+                    printf("Window maximized\n");
                     break;
                 case GLEQ_FRAMEBUFFER_RESIZED:
-                    printf("Framebuffer resized to (%i %i)\n", event.size.width, event.size.height);
+                    printf("Framebuffer resized to %ix%i\n",
+                           event.size.width, event.size.height);
                     break;
                 case GLEQ_BUTTON_PRESSED:
-                    printf("Button %i pressed\n", event.button.button);
+                    printf("Mouse button %i pressed\n", event.button.button);
                     break;
                 case GLEQ_BUTTON_RELEASED:
-                    printf("Button %i released\n", event.button.button);
+                    printf("Mouse button %i released\n", event.button.button);
                     break;
                 case GLEQ_CURSOR_MOVED:
-                    printf("Cursor moved to (%0.2f %0.2f)\n", event.pos.x, event.pos.y);
+                    printf("Cursor moved to %i,%i\n", event.pos.x, event.pos.y);
                     break;
                 case GLEQ_CURSOR_ENTERED:
                     printf("Cursor entered window\n");
@@ -108,7 +118,8 @@ int main(int argc, char** argv)
                     printf("Cursor left window\n");
                     break;
                 case GLEQ_SCROLLED:
-                    printf("Scrolled (%0.2f %0.2f)\n", event.pos.x, event.pos.y);
+                    printf("Scrolled %0.2f,%0.2f\n",
+                           event.scroll.x, event.scroll.y);
                     break;
                 case GLEQ_KEY_PRESSED:
                     printf("Key 0x%02x pressed\n", event.key.key);
@@ -119,13 +130,28 @@ int main(int argc, char** argv)
                 case GLEQ_KEY_RELEASED:
                     printf("Key 0x%02x released\n", event.key.key);
                     break;
-                case GLEQ_CHARACTER_INPUT:
-                    printf("Character 0x%08x input\n", event.character.codepoint);
+                case GLEQ_CODEPOINT_INPUT:
+                    printf("Codepoint U+%05X input\n", event.codepoint);
                     break;
                 case GLEQ_FILE_DROPPED:
                     printf("%i files dropped\n", event.file.count);
                     for (i = 0;  i < event.file.count;  i++)
                         printf("\t%s\n", event.file.paths[i]);
+                    break;
+                case GLEQ_MONITOR_CONNECTED:
+                    printf("Monitor %s connected\n",
+                           glfwGetMonitorName(event.monitor));
+                    break;
+                case GLEQ_MONITOR_DISCONNECTED:
+                    printf("Monitor disconnected\n");
+                    break;
+                case GLEQ_JOYSTICK_CONNECTED:
+                    printf("Joystick %i (%s) connected\n",
+                           event.joystick,
+                           glfwGetJoystickName(event.joystick));
+                    break;
+                case GLEQ_JOYSTICK_DISCONNECTED:
+                    printf("Joystick %i disconnected\n", event.joystick);
                     break;
                 default:
                     fprintf(stderr, "Error: Unknown event %i\n", event.type);
@@ -134,6 +160,10 @@ int main(int argc, char** argv)
 
             gleqFreeEvent(&event);
         }
+
+        // Workaround for msvcrt stdout not being properly flushed by
+        // newlines when running inside mintty
+        fflush(stdout);
     }
 
     glfwDestroyWindow(window);
