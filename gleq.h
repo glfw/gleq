@@ -146,7 +146,7 @@ static struct
 static char* gleq_strdup(const char* string)
 {
     const size_t size = strlen(string) + 1;
-    char* result = malloc(size);
+    char* result = (char*) malloc(size);
     memcpy(result, string, size);
     return result;
 }
