@@ -43,8 +43,8 @@ functions static by defining `GLEQ_STATIC` as well.
 #include "gleq.h"
 ```
 
-After GLFW has been successfully initialized, call `gleqInit`.  This will hook
-monitor and joystick events.
+After GLFW has been successfully initialized, call `gleqInit`.  This will
+replace the monitor and joystick callbacks.
 
 ```c
 if (!glfwInit())
@@ -54,18 +54,18 @@ gleqInit();
 ```
 
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This
-replaces all callback on that window.  You should not set any callbacks on
-a tracked window.
+replaces all callback on that window.
 
 ```c
 gleqTrackWindow(window);
 ```
 
-Event polling and waiting is done as usual with `glfwPollEvents` and
-`glfwWaitEvents`.  Available events for tracked windows are added to the queue
-when you call one of these.
+Event processing is done as usual with `glfwPollEvents`, `glfwWaitEvents` or
+`glfwWaitEventsTimeout`.  Events for monitors, joysticks and tracked windows are
+added to the queue as GLFW reports them.
 
-Event retrieval is done with `gleqNextEvent`.
+Event retrieval is done with `gleqNextEvent` and each event is then freed with
+`gleqFreeEvent`.
 
 ```c
 GLEQevent event;
@@ -93,7 +93,7 @@ recommended to call it for every event once it has been processed.
 
 ### Does GLEQ use the GLFW window user pointer?
 
-No, only window related callbacks.
+No, only GLFW callbacks.
 
 
 ### Does GLEQ allocate memory?
