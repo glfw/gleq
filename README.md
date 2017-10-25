@@ -54,7 +54,7 @@ gleqInit();
 ```
 
 Once a GLFW window is created, you can track it with `gleqTrackWindow`.  This
-replaces all callback on that window.
+replaces all callbacks on that window.
 
 ```c
 gleqTrackWindow(window);
