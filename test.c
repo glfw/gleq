@@ -57,7 +57,6 @@ int main(int argc, char** argv)
 
     while (!glfwWindowShouldClose(window))
     {
-        int i;
         GLEQevent event;
 
         glfwSwapBuffers(window);
@@ -70,89 +69,136 @@ int main(int argc, char** argv)
                 case GLEQ_WINDOW_MOVED:
                     printf("Window moved to %i,%i\n", event.pos.x, event.pos.y);
                     break;
+
                 case GLEQ_WINDOW_RESIZED:
                     printf("Window resized to %ix%i\n",
-                           event.size.width, event.size.height);
+                           event.size.width,
+                           event.size.height);
                     break;
+
                 case GLEQ_WINDOW_CLOSED:
                     printf("Window close request\n");
                     break;
+
                 case GLEQ_WINDOW_REFRESH:
                     printf("Window refresh request\n");
                     break;
+
                 case GLEQ_WINDOW_FOCUSED:
                     printf("Window focused\n");
                     break;
+
                 case GLEQ_WINDOW_DEFOCUSED:
                     printf("Window defocused\n");
                     break;
+
                 case GLEQ_WINDOW_ICONIFIED:
                     printf("Window iconified\n");
                     break;
+
                 case GLEQ_WINDOW_UNICONIFIED:
                     printf("Window uniconified\n");
                     break;
+
                 case GLEQ_WINDOW_MAXIMIZED:
                     printf("Window maximized\n");
                     break;
+
                 case GLEQ_WINDOW_UNMAXIMIZED:
                     printf("Window maximized\n");
                     break;
+
                 case GLEQ_FRAMEBUFFER_RESIZED:
                     printf("Framebuffer resized to %ix%i\n",
-                           event.size.width, event.size.height);
+                           event.size.width,
+                           event.size.height);
                     break;
+
                 case GLEQ_BUTTON_PRESSED:
-                    printf("Mouse button %i pressed\n", event.button.button);
+                    printf("Mouse button %i pressed (mods 0x%x)\n",
+                           event.mouse.button,
+                           event.mouse.mods);
                     break;
+
                 case GLEQ_BUTTON_RELEASED:
-                    printf("Mouse button %i released\n", event.button.button);
+                    printf("Mouse button %i released (mods 0x%x)\n",
+                           event.mouse.button,
+                           event.mouse.mods);
                     break;
+
                 case GLEQ_CURSOR_MOVED:
                     printf("Cursor moved to %i,%i\n", event.pos.x, event.pos.y);
                     break;
+
                 case GLEQ_CURSOR_ENTERED:
                     printf("Cursor entered window\n");
                     break;
+
                 case GLEQ_CURSOR_LEFT:
                     printf("Cursor left window\n");
                     break;
+
                 case GLEQ_SCROLLED:
                     printf("Scrolled %0.2f,%0.2f\n",
                            event.scroll.x, event.scroll.y);
                     break;
+
                 case GLEQ_KEY_PRESSED:
-                    printf("Key 0x%02x pressed\n", event.key.key);
+                    printf("Key 0x%02x pressed (scancode 0x%x mods 0x%x)\n",
+                           event.keyboard.key,
+                           event.keyboard.scancode,
+                           event.keyboard.mods);
                     break;
+
                 case GLEQ_KEY_REPEATED:
-                    printf("Key 0x%02x repeated\n", event.key.key);
+                    printf("Key 0x%02x repeated (scancode 0x%x mods 0x%x)\n",
+                           event.keyboard.key,
+                           event.keyboard.scancode,
+                           event.keyboard.mods);
                     break;
+
                 case GLEQ_KEY_RELEASED:
-                    printf("Key 0x%02x released\n", event.key.key);
+                    printf("Key 0x%02x released (scancode 0x%x mods 0x%x)\n",
+                           event.keyboard.key,
+                           event.keyboard.scancode,
+                           event.keyboard.mods);
                     break;
+
                 case GLEQ_CODEPOINT_INPUT:
                     printf("Codepoint U+%05X input\n", event.codepoint);
                     break;
+
                 case GLEQ_FILE_DROPPED:
+                {
+                    int i;
+
                     printf("%i files dropped\n", event.file.count);
                     for (i = 0;  i < event.file.count;  i++)
                         printf("\t%s\n", event.file.paths[i]);
+
                     break;
+                }
+
                 case GLEQ_MONITOR_CONNECTED:
-                    printf("Monitor %s connected\n",
+                    printf("Monitor \"%s\" connected\n",
                            glfwGetMonitorName(event.monitor));
                     break;
+
                 case GLEQ_MONITOR_DISCONNECTED:
-                    printf("Monitor disconnected\n");
+                    printf("Monitor \"%s\" disconnected\n",
+                           glfwGetMonitorName(event.monitor));
                     break;
+
                 case GLEQ_JOYSTICK_CONNECTED:
-                    printf("Joystick %i (%s) connected\n",
+                    printf("Joystick %i \"%s\" connected\n",
                            event.joystick,
                            glfwGetJoystickName(event.joystick));
                     break;
+
                 case GLEQ_JOYSTICK_DISCONNECTED:
                     printf("Joystick %i disconnected\n", event.joystick);
                     break;
+
                 default:
                     fprintf(stderr, "Error: Unknown event %i\n", event.type);
                     break;

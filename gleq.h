@@ -101,11 +101,11 @@ typedef struct GLEQevent
             int key;
             int scancode;
             int mods;
-        } key;
+        } keyboard;
         struct {
             int button;
             int mods;
-        } button;
+        } mouse;
         unsigned int codepoint;
 #if GLFW_VERSION_MINOR >= 1
         struct {
@@ -227,8 +227,8 @@ static void gleq_mouse_button_callback(GLFWwindow* window, int button, int actio
 {
     GLEQevent* event = gleq_new_event();
     event->window = window;
-    event->button.button = button;
-    event->button.mods = mods;
+    event->mouse.button = button;
+    event->mouse.mods = mods;
 
     if (action == GLFW_PRESS)
         event->type = GLEQ_BUTTON_PRESSED;
@@ -269,9 +269,9 @@ static void gleq_key_callback(GLFWwindow* window, int key, int scancode, int act
 {
     GLEQevent* event = gleq_new_event();
     event->window = window;
-    event->key.key = key;
-    event->key.scancode = scancode;
-    event->key.mods = mods;
+    event->keyboard.key = key;
+    event->keyboard.scancode = scancode;
+    event->keyboard.mods = mods;
 
     if (action == GLFW_PRESS)
         event->type = GLEQ_KEY_PRESSED;
