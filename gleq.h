@@ -99,10 +99,6 @@ typedef struct GLEQevent
             double y;
         } scroll;
         struct {
-            float x;
-            float y;
-        } scale;
-        struct {
             int key;
             int scancode;
             int mods;
@@ -117,6 +113,12 @@ typedef struct GLEQevent
             char** paths;
             int count;
         } file;
+#endif
+#if GLFW_VERSION_MINOR >= 3
+        struct {
+            float x;
+            float y;
+        } scale;
 #endif
     };
 } GLEQevent;
