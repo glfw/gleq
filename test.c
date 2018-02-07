@@ -108,6 +108,11 @@ int main(int argc, char** argv)
                     printf("Window maximized\n");
                     break;
 
+                case GLEQ_WINDOW_SCALE_CHANGED:
+                    printf("Window content scale %0.2fx%0.2f\n",
+                           event.scale.x, event.scale.y);
+                    break;
+
                 case GLEQ_FRAMEBUFFER_RESIZED:
                     printf("Framebuffer resized to %ix%i\n",
                            event.size.width,

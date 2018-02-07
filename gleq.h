@@ -73,6 +73,7 @@ typedef enum
 #if GLFW_VERSION_MINOR >= 3
     GLEQ_WINDOW_MAXIMIZED,
     GLEQ_WINDOW_UNMAXIMIZED,
+    GLEQ_WINDOW_SCALE_CHANGED,
 #endif
 } GLEQtype;
 
@@ -97,6 +98,10 @@ typedef struct GLEQevent
             double x;
             double y;
         } scroll;
+        struct {
+            float x;
+            float y;
+        } scale;
         struct {
             int key;
             int scancode;
@@ -338,6 +343,15 @@ static void gleq_window_maximize_callback(GLFWwindow* window, int maximized)
     else
         event->type = GLEQ_WINDOW_UNMAXIMIZED;
 }
+
+static void gleq_window_content_scale_callback(GLFWwindow* window, float xscale, float yscale)
+{
+    GLEQevent* event = gleq_new_event();
+    event->window = window;
+    event->type = GLEQ_WINDOW_SCALE_CHANGED;
+    event->scale.x = xscale;
+    event->scale.y = yscale;
+}
 #endif
 
 GLEQDEF void gleqInit(void)
@@ -368,6 +382,7 @@ GLEQDEF void gleqTrackWindow(GLFWwindow* window)
 #endif
 #if GLFW_VERSION_MINOR >= 3
     glfwSetWindowMaximizeCallback(window, gleq_window_maximize_callback);
+    glfwSetWindowContentScaleCallback(window, gleq_window_content_scale_callback);
 #endif
 }
 
