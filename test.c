@@ -99,7 +99,7 @@ int main(int argc, char** argv)
                 case GLEQ_WINDOW_UNICONIFIED:
                     printf("Window uniconified\n");
                     break;
-
+#if GLFW_VERSION_MINOR >= 3
                 case GLEQ_WINDOW_MAXIMIZED:
                     printf("Window maximized\n");
                     break;
@@ -112,7 +112,7 @@ int main(int argc, char** argv)
                     printf("Window content scale %0.2fx%0.2f\n",
                            event.scale.x, event.scale.y);
                     break;
-
+#endif
                 case GLEQ_FRAMEBUFFER_RESIZED:
                     printf("Framebuffer resized to %ix%i\n",
                            event.size.width,
