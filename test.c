@@ -100,6 +100,7 @@ int main(int argc, char** argv)
                     printf("Window uniconified\n");
                     break;
 
+#if GLFW_VERSION_MINOR >= 3
                 case GLEQ_WINDOW_MAXIMIZED:
                     printf("Window maximized\n");
                     break;
@@ -112,6 +113,7 @@ int main(int argc, char** argv)
                     printf("Window content scale %0.2fx%0.2f\n",
                            event.scale.x, event.scale.y);
                     break;
+#endif // GLFW_VERSION_MINOR
 
                 case GLEQ_FRAMEBUFFER_RESIZED:
                     printf("Framebuffer resized to %ix%i\n",
@@ -173,6 +175,7 @@ int main(int argc, char** argv)
                     printf("Codepoint U+%05X input\n", event.codepoint);
                     break;
 
+#if GLFW_VERSION_MINOR >= 1
                 case GLEQ_FILE_DROPPED:
                 {
                     int i;
@@ -183,6 +186,7 @@ int main(int argc, char** argv)
 
                     break;
                 }
+#endif // GLFW_VERSION_MINOR
 
                 case GLEQ_MONITOR_CONNECTED:
                     printf("Monitor \"%s\" connected\n",
@@ -194,6 +198,7 @@ int main(int argc, char** argv)
                            glfwGetMonitorName(event.monitor));
                     break;
 
+#if GLFW_VERSION_MINOR >= 2
                 case GLEQ_JOYSTICK_CONNECTED:
                     printf("Joystick %i \"%s\" connected\n",
                            event.joystick,
@@ -203,6 +208,7 @@ int main(int argc, char** argv)
                 case GLEQ_JOYSTICK_DISCONNECTED:
                     printf("Joystick %i disconnected\n", event.joystick);
                     break;
+#endif // GLFW_VERSION_MINOR
 
                 default:
                     fprintf(stderr, "Error: Unknown event %i\n", event.type);
