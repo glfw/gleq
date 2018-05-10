@@ -25,9 +25,7 @@
 #ifndef GLEQ_HEADER_FILE
 #define GLEQ_HEADER_FILE
 
-#if GLFW_VERSION_MAJOR != 3
-    #error "This version of GLEQ only supports GLFW 3"
-#endif
+#include <GLFW/glfw3.h>
 
 #ifdef GLEQ_STATIC
     #define GLEQDEF static
