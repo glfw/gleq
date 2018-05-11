@@ -106,7 +106,7 @@ int main(int argc, char** argv)
                     break;
 
                 case GLEQ_WINDOW_UNMAXIMIZED:
-                    printf("Window maximized\n");
+                    printf("Window unmaximized\n");
                     break;
 
                 case GLEQ_WINDOW_SCALE_CHANGED:
